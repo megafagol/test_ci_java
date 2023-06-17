@@ -24,4 +24,12 @@ public class AppTest
         Assert.assertEquals(8,newCamera.funcAdd(5,3));
 
     }
+
+    @Test
+    public void testFuncAdd2()
+    {
+        Camera newCamera = new Camera();
+        Assert.assertEquals(7,newCamera.funcAdd(5,3));
+
+    }
 }
