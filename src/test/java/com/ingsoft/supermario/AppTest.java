@@ -1,4 +1,4 @@
-package com.mycompany.app;
+package com.ingsoft.supermario;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,6 +15,13 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
+        assertTrue( true );
+    }
+
+    @Test
+    public void testFuncAdd()
+    {
+
         assertTrue( true );
     }
 }

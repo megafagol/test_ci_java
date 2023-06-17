@@ -131,4 +131,10 @@ public class Mario extends GameObject{
         setJumping(false);
         setFalling(true);
     }
+
+
+    public int funcAdd(int num1, int num2){
+        return num1 + num2; 
+    }
+
 }
