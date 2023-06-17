@@ -1,7 +1,7 @@
-package model.hero;
+package com.ingsoft.supermario.model.hero;
 
 
-import model.GameObject;
+import com.ingsoft.supermario.model.GameObject;
 
 import java.awt.image.BufferedImage;
 

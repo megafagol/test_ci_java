@@ -48,4 +48,9 @@ public class Camera {
         if(frameNumber < 0)
             shaking = false;
     }
+
+    public int funcAdd(int num1, int num2){
+        return num1 + num2;
+    }
+
 }

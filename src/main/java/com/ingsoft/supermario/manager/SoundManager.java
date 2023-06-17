@@ -1,4 +1,4 @@
-package manager;
+package com.ingsoft.supermario.manager;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

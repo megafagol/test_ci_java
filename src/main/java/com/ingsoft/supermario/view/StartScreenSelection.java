@@ -1,4 +1,4 @@
-package view;
+package com.ingsoft.supermario.view;
 
 public enum StartScreenSelection {
     START_GAME(0),

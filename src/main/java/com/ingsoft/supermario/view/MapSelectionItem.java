@@ -1,4 +1,4 @@
-package view;
+package com.ingsoft.supermario.view;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,9 +1,9 @@
-package manager;
+package com.ingsoft.supermario.manager;
 
-import model.hero.Mario;
-import view.ImageLoader;
-import view.StartScreenSelection;
-import view.UIManager;
+import com.ingsoft.supermario.model.hero.Mario;
+import com.ingsoft.supermario.view.ImageLoader;
+import com.ingsoft.supermario.view.StartScreenSelection;
+import com.ingsoft.supermario.view.UIManager;
 
 import javax.swing.*;
 import java.awt.*;

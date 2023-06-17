@@ -1,10 +1,10 @@
-package model.prize;
+package com.ingsoft.supermario.model.prize;
 
-import manager.GameEngine;
-import model.hero.Mario;
-import model.hero.MarioForm;
-import view.Animation;
-import view.ImageLoader;
+import com.ingsoft.supermario.manager.GameEngine;
+import com.ingsoft.supermario.model.hero.Mario;
+import com.ingsoft.supermario.model.hero.MarioForm;
+import com.ingsoft.supermario.view.Animation;
+import com.ingsoft.supermario.view.ImageLoader;
 
 import java.awt.image.BufferedImage;
 

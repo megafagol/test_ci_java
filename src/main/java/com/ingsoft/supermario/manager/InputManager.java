@@ -1,4 +1,4 @@
-package manager;
+package com.ingsoft.supermario.manager;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

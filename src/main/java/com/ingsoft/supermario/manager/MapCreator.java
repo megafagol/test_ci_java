@@ -1,14 +1,14 @@
-package manager;
+package com.ingsoft.supermario.manager;
 
-import model.EndFlag;
-import model.brick.*;
-import model.prize.*;
-import view.ImageLoader;
-import model.Map;
-import model.enemy.Enemy;
-import model.enemy.Goomba;
-import model.enemy.KoopaTroopa;
-import model.hero.Mario;
+import com.ingsoft.supermario.model.EndFlag;
+import com.ingsoft.supermario.model.brick.*;
+import com.ingsoft.supermario.model.prize.*;
+import com.ingsoft.supermario.view.ImageLoader;
+import com.ingsoft.supermario.model.Map;
+import com.ingsoft.supermario.model.enemy.Enemy;
+import com.ingsoft.supermario.model.enemy.Goomba;
+import com.ingsoft.supermario.model.enemy.KoopaTroopa;
+import com.ingsoft.supermario.model.hero.Mario;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

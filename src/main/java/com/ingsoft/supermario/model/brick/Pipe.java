@@ -1,4 +1,4 @@
-package model.brick;
+package com.ingsoft.supermario.model.brick;
 
 import java.awt.image.BufferedImage;
 

@@ -1,13 +1,13 @@
-package model;
+package com.ingsoft.supermario.model;
 
-import model.brick.Brick;
-import model.brick.OrdinaryBrick;
-import model.enemy.Enemy;
-import model.hero.Fireball;
-import model.hero.Mario;
-import model.prize.BoostItem;
-import model.prize.Coin;
-import model.prize.Prize;
+import com.ingsoft.supermario.model.brick.Brick;
+import com.ingsoft.supermario.model.brick.OrdinaryBrick;
+import com.ingsoft.supermario.model.enemy.Enemy;
+import com.ingsoft.supermario.model.hero.Fireball;
+import com.ingsoft.supermario.model.hero.Mario;
+import com.ingsoft.supermario.model.prize.BoostItem;
+import com.ingsoft.supermario.model.prize.Coin;
+import com.ingsoft.supermario.model.prize.Prize;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

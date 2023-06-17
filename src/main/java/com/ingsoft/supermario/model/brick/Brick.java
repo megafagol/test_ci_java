@@ -1,9 +1,9 @@
-package model.brick;
+package com.ingsoft.supermario.model.brick;
 
-import manager.GameEngine;
-import model.GameObject;
-import model.Map;
-import model.prize.Prize;
+import com.ingsoft.supermario.manager.GameEngine;
+import com.ingsoft.supermario.model.GameObject;
+import com.ingsoft.supermario.model.Map;
+import com.ingsoft.supermario.model.prize.Prize;
 
 import java.awt.image.BufferedImage;
 

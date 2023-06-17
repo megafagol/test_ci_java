@@ -1,4 +1,4 @@
-package model;
+package com.ingsoft.supermario.model;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,8 +1,8 @@
-package model.prize;
+package com.ingsoft.supermario.model.prize;
 
-import manager.GameEngine;
-import manager.MapManager;
-import model.hero.Mario;
+import com.ingsoft.supermario.manager.GameEngine;
+import com.ingsoft.supermario.manager.MapManager;
+import com.ingsoft.supermario.model.hero.Mario;
 
 import java.awt.*;
 

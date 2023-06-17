@@ -1,6 +1,6 @@
-package model.enemy;
+package com.ingsoft.supermario.model.enemy;
 
-import model.GameObject;
+import com.ingsoft.supermario.model.GameObject;
 
 import java.awt.image.BufferedImage;
 

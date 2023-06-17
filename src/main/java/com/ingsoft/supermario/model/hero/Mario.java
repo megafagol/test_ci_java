@@ -1,10 +1,10 @@
-package model.hero;
+package com.ingsoft.supermario.model.hero;
 
-import manager.Camera;
-import manager.GameEngine;
-import view.Animation;
-import model.GameObject;
-import view.ImageLoader;
+import com.ingsoft.supermario.manager.Camera;
+import com.ingsoft.supermario.manager.GameEngine;
+import com.ingsoft.supermario.view.Animation;
+import com.ingsoft.supermario.model.GameObject;
+import com.ingsoft.supermario.view.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -133,8 +133,6 @@ public class Mario extends GameObject{
     }
 
 
-    public int funcAdd(int num1, int num2){
-        return num1 + num2; 
-    }
+
 
 }

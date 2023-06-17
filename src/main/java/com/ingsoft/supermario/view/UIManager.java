@@ -1,7 +1,7 @@
-package view;
+package com.ingsoft.supermario.view;
 
-import manager.GameEngine;
-import manager.GameStatus;
+import com.ingsoft.supermario.manager.GameEngine;
+import com.ingsoft.supermario.manager.GameStatus;
 
 import javax.swing.*;
 import java.awt.*;

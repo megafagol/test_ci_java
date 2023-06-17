@@ -1,4 +1,4 @@
-package model.enemy;
+package com.ingsoft.supermario.model.enemy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

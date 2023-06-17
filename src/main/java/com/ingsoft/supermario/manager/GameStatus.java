@@ -1,4 +1,4 @@
-package manager;
+package com.ingsoft.supermario.manager;
 
 public enum GameStatus {
     GAME_OVER,
