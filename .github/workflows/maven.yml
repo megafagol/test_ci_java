@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "superMario" ]
+    branches: [ "superMarioAyme" ]
   pull_request:
-    branches: [ "superMario" ]
+    branches: [ "superMarioAyme" ]
 
 jobs:
   build:
