@@ -29,7 +29,7 @@ public class AppTest
     public void testFuncAdd2()
     {
         Camera newCamera = new Camera();
-        Assert.assertEquals(7,newCamera.funcAdd(5,3));
+        Assert.assertEquals(4,newCamera.funcAdd(2,2));
 
     }
 }
