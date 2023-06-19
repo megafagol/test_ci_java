@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MapManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">my-app</a> &gt; <a href="index.source.html" class="el_package">com.AdeAyme.superMarioBros.manager</a> &gt; <span class="el_source">MapManager.java</span></div><h1>MapManager.java</h1><pre class="source lang-java linenums">package com.AdeAyme.superMarioBros.manager;
+
+import com.AdeAyme.superMarioBros.model.Difficulty;
+import com.AdeAyme.superMarioBros.model.GameObject;
+import com.AdeAyme.superMarioBros.model.Map;
+import com.AdeAyme.superMarioBros.model.brick.Brick;
+import com.AdeAyme.superMarioBros.model.brick.OrdinaryBrick;
+import com.AdeAyme.superMarioBros.model.enemy.Enemy;
+import com.AdeAyme.superMarioBros.model.hero.Fireball;
+import com.AdeAyme.superMarioBros.model.hero.Mario;
+import com.AdeAyme.superMarioBros.model.prize.BoostItem;
+import com.AdeAyme.superMarioBros.model.prize.Coin;
+import com.AdeAyme.superMarioBros.model.prize.Prize;
+import com.AdeAyme.superMarioBros.view.ImageLoader;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+public class MapManager {
+
+    private Map map;
+    private Difficulty difficulty;
+
+<span class="fc" id="L24">    public MapManager() {</span>
+
+<span class="fc" id="L26">        difficulty = new Difficulty();</span>
+<span class="fc" id="L27">    }</span>
+
+    public void updateLocations() {
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (map == null)</span>
+<span class="nc" id="L31">            return;</span>
+
+<span class="nc" id="L33">        map.updateLocations();</span>
+<span class="nc" id="L34">    }</span>
+
+    public void resetCurrentMap(GameEngine engine) {
+<span class="nc" id="L37">        Mario mario = getMario();</span>
+<span class="nc" id="L38">        mario.resetLocation();</span>
+<span class="nc" id="L39">        engine.resetCamera();</span>
+<span class="nc" id="L40">        createMap(engine.getImageLoader(), map.getPath());</span>
+<span class="nc" id="L41">        map.setMario(mario);</span>
+<span class="nc" id="L42">    }</span>
+
+    public boolean createMap(ImageLoader loader, String path) {
+<span class="fc" id="L45">        MapCreator mapCreator = new MapCreator(loader, difficulty);</span>
+<span class="fc" id="L46">        map = mapCreator.createMap(&quot;/maps/&quot; + path, 400);</span>
+
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        return map != null;</span>
+    }
+
+    public void acquirePoints(int point) {
+<span class="nc" id="L52">        map.getMario().acquirePoints(point);</span>
+<span class="nc" id="L53">    }</span>
+
+    public Mario getMario() {
+<span class="fc" id="L56">        return map.getMario();</span>
+    }
+
+    public void fire(GameEngine engine) {
+<span class="nc" id="L60">        Fireball fireball = getMario().fire();</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (fireball != null) {</span>
+<span class="nc" id="L62">            map.addFireball(fireball);</span>
+<span class="nc" id="L63">            engine.playFireball(); //es el sonido del fuego</span>
+        }
+<span class="nc" id="L65">    }</span>
+
+    public boolean isGameOver() {
+<span class="nc bnc" id="L68" title="All 4 branches missed.">        return getMario().getRemainingLives() == 0 || map.isTimeOver();</span>
+    }
+
+    public int getScore() {
+<span class="nc" id="L72">        return getMario().getPoints();</span>
+    }
+
+    public int getRemainingLives() {
+<span class="nc" id="L76">        return getMario().getRemainingLives();</span>
+    }
+
+    public int getCoins() {
+<span class="nc" id="L80">        return getMario().getCoins();</span>
+    }
+
+    public void drawMap(Graphics2D g2) {
+<span class="nc" id="L84">        map.drawMap(g2);</span>
+<span class="nc" id="L85">    }</span>
+
+    public int passMission() {
+<span class="nc bnc" id="L88" title="All 4 branches missed.">        if(getMario().getX() &gt;= map.getEndPoint().getX() &amp;&amp; !map.getEndPoint().isTouched()){</span>
+<span class="nc" id="L89">            map.getEndPoint().setTouched(true);</span>
+<span class="nc" id="L90">            int height = (int)getMario().getY();</span>
+<span class="nc" id="L91">            return height * 2;</span>
+        }
+        else
+<span class="nc" id="L94">            return -1;</span>
+    }
+
+    public boolean endLevel(){
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        return getMario().getX() &gt;= map.getEndPoint().getX() + 320;</span>
+    }
+
+    public void checkCollisions(GameEngine engine) {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L103">            return;</span>
+        }
+
+<span class="nc" id="L106">        checkBottomCollisions(engine);</span>
+<span class="nc" id="L107">        checkTopCollisions(engine);</span>
+<span class="nc" id="L108">        checkMarioHorizontalCollision(engine);</span>
+<span class="nc" id="L109">        checkEnemyCollisions();</span>
+<span class="nc" id="L110">        checkPrizeCollision();</span>
+<span class="nc" id="L111">        checkPrizeContact(engine);</span>
+<span class="nc" id="L112">        checkFireballContact();</span>
+<span class="nc" id="L113">    }</span>
+
+    private void checkBottomCollisions(GameEngine engine) {
+<span class="nc" id="L116">        Mario mario = getMario();</span>
+<span class="nc" id="L117">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+<span class="nc" id="L118">        ArrayList&lt;Enemy&gt; enemies = map.getEnemies();</span>
+<span class="nc" id="L119">        ArrayList&lt;GameObject&gt; toBeRemoved = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L121">        Rectangle marioBottomBounds = mario.getBottomBounds();</span>
+
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (!mario.isJumping())</span>
+<span class="nc" id="L124">            mario.setFalling(true);</span>
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        for (Brick brick : bricks) {</span>
+<span class="nc" id="L127">            Rectangle brickTopBounds = brick.getTopBounds();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            if (marioBottomBounds.intersects(brickTopBounds)) {</span>
+<span class="nc" id="L129">                mario.setY(brick.getY() - mario.getDimension().height + 1);</span>
+<span class="nc" id="L130">                mario.setFalling(false);</span>
+<span class="nc" id="L131">                mario.setVelY(0);</span>
+            }
+<span class="nc" id="L133">        }</span>
+
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (Enemy enemy : enemies) {</span>
+<span class="nc" id="L136">            Rectangle enemyTopBounds = enemy.getTopBounds();</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if (marioBottomBounds.intersects(enemyTopBounds)) {</span>
+<span class="nc" id="L138">                mario.acquirePoints(100);</span>
+<span class="nc" id="L139">                toBeRemoved.add(enemy);</span>
+<span class="nc" id="L140">                engine.playStomp();</span>
+            }
+<span class="nc" id="L142">        }</span>
+
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (mario.getY() + mario.getDimension().height &gt;= map.getBottomBorder()) {</span>
+<span class="nc" id="L145">            mario.setY(map.getBottomBorder() - mario.getDimension().height);</span>
+<span class="nc" id="L146">            mario.setFalling(false);</span>
+<span class="nc" id="L147">            mario.setVelY(0);</span>
+        }
+
+<span class="nc" id="L150">        removeObjects(toBeRemoved);</span>
+<span class="nc" id="L151">    }</span>
+
+    private void checkTopCollisions(GameEngine engine) {
+<span class="nc" id="L154">        Mario mario = getMario();</span>
+<span class="nc" id="L155">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+
+<span class="nc" id="L157">        Rectangle marioTopBounds = mario.getTopBounds();</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        for (Brick brick : bricks) {</span>
+<span class="nc" id="L159">            Rectangle brickBottomBounds = brick.getBottomBounds();</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">            if (marioTopBounds.intersects(brickBottomBounds)) {</span>
+<span class="nc" id="L161">                mario.setVelY(0);</span>
+<span class="nc" id="L162">                mario.setY(brick.getY() + brick.getDimension().height);</span>
+<span class="nc" id="L163">                Prize prize = brick.reveal(engine);</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                if(prize != null)</span>
+<span class="nc" id="L165">                    map.addRevealedPrize(prize);</span>
+            }
+<span class="nc" id="L167">        }</span>
+<span class="nc" id="L168">    }</span>
+
+    private void checkMarioHorizontalCollision(GameEngine engine){
+<span class="nc" id="L171">        Mario mario = getMario();</span>
+<span class="nc" id="L172">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+<span class="nc" id="L173">        ArrayList&lt;Enemy&gt; enemies = map.getEnemies();</span>
+<span class="nc" id="L174">        ArrayList&lt;GameObject&gt; toBeRemoved = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L176">        boolean marioDies = false;</span>
+<span class="nc" id="L177">        boolean toRight = mario.getToRight();</span>
+
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        Rectangle marioBounds = toRight ? mario.getRightBounds() : mario.getLeftBounds();</span>
+
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        for (Brick brick : bricks) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            Rectangle brickBounds = !toRight ? brick.getRightBounds() : brick.getLeftBounds();</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            if (marioBounds.intersects(brickBounds)) {</span>
+<span class="nc" id="L184">                mario.setVelX(0);</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">                if(toRight)</span>
+<span class="nc" id="L186">                    mario.setX(brick.getX() - mario.getDimension().width);</span>
+                else
+<span class="nc" id="L188">                    mario.setX(brick.getX() + brick.getDimension().width);</span>
+            }
+<span class="nc" id="L190">        }</span>
+
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        for(Enemy enemy : enemies){</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">            Rectangle enemyBounds = !toRight ? enemy.getRightBounds() : enemy.getLeftBounds();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            if (marioBounds.intersects(enemyBounds)) {</span>
+<span class="nc" id="L195">                marioDies = mario.onTouchEnemy(engine , difficulty );</span>
+<span class="nc" id="L196">                toBeRemoved.add(enemy);</span>
+            }
+<span class="nc" id="L198">        }</span>
+<span class="nc" id="L199">        removeObjects(toBeRemoved);</span>
+
+
+<span class="nc bnc" id="L202" title="All 4 branches missed.">        if (mario.getX() &lt;= engine.getCameraLocation().getX() &amp;&amp; mario.getVelX() &lt; 0) {</span>
+<span class="nc" id="L203">            mario.setVelX(0);</span>
+<span class="nc" id="L204">            mario.setX(engine.getCameraLocation().getX());</span>
+        }
+
+<span class="nc bnc" id="L207" title="All 2 branches missed.">        if(marioDies) {</span>
+<span class="nc" id="L208">            resetCurrentMap(engine);</span>
+        }
+<span class="nc" id="L210">    }</span>
+
+    private void checkEnemyCollisions() {
+<span class="nc" id="L213">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+<span class="nc" id="L214">        ArrayList&lt;Enemy&gt; enemies = map.getEnemies();</span>
+
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        for (Enemy enemy : enemies) {</span>
+<span class="nc" id="L217">            boolean standsOnBrick = false;</span>
+
+<span class="nc bnc" id="L219" title="All 2 branches missed.">            for (Brick brick : bricks) {</span>
+<span class="nc" id="L220">                Rectangle enemyBounds = enemy.getLeftBounds();</span>
+<span class="nc" id="L221">                Rectangle brickBounds = brick.getRightBounds();</span>
+
+<span class="nc" id="L223">                Rectangle enemyBottomBounds = enemy.getBottomBounds();</span>
+<span class="nc" id="L224">                Rectangle brickTopBounds = brick.getTopBounds();</span>
+
+<span class="nc bnc" id="L226" title="All 2 branches missed.">                if (enemy.getVelX() &gt; 0) {</span>
+<span class="nc" id="L227">                    enemyBounds = enemy.getRightBounds();</span>
+<span class="nc" id="L228">                    brickBounds = brick.getLeftBounds();</span>
+                }
+
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                if (enemyBounds.intersects(brickBounds)) {</span>
+<span class="nc" id="L232">                    enemy.setVelX(-enemy.getVelX());</span>
+                }
+
+<span class="nc bnc" id="L235" title="All 2 branches missed.">                if (enemyBottomBounds.intersects(brickTopBounds)){</span>
+<span class="nc" id="L236">                    enemy.setFalling(false);</span>
+<span class="nc" id="L237">                    enemy.setVelY(0);</span>
+<span class="nc" id="L238">                    enemy.setY(brick.getY()-enemy.getDimension().height);</span>
+<span class="nc" id="L239">                    standsOnBrick = true;</span>
+                }
+<span class="nc" id="L241">            }</span>
+
+<span class="nc bnc" id="L243" title="All 2 branches missed.">            if(enemy.getY() + enemy.getDimension().height &gt; map.getBottomBorder()){</span>
+<span class="nc" id="L244">                enemy.setFalling(false);</span>
+<span class="nc" id="L245">                enemy.setVelY(0);</span>
+<span class="nc" id="L246">                enemy.setY(map.getBottomBorder()-enemy.getDimension().height);</span>
+            }
+
+<span class="nc bnc" id="L249" title="All 4 branches missed.">            if (!standsOnBrick &amp;&amp; enemy.getY() &lt; map.getBottomBorder()){</span>
+<span class="nc" id="L250">                enemy.setFalling(true);</span>
+            }
+<span class="nc" id="L252">        }</span>
+<span class="nc" id="L253">    }</span>
+
+    private void checkPrizeCollision() {
+<span class="nc" id="L256">        ArrayList&lt;Prize&gt; prizes = map.getRevealedPrizes();</span>
+<span class="nc" id="L257">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+
+<span class="nc bnc" id="L259" title="All 2 branches missed.">        for (Prize prize : prizes) {</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">            if (prize instanceof BoostItem) {</span>
+<span class="nc" id="L261">                BoostItem boost = (BoostItem) prize;</span>
+<span class="nc" id="L262">                Rectangle prizeBottomBounds = boost.getBottomBounds();</span>
+<span class="nc" id="L263">                Rectangle prizeRightBounds = boost.getRightBounds();</span>
+<span class="nc" id="L264">                Rectangle prizeLeftBounds = boost.getLeftBounds();</span>
+<span class="nc" id="L265">                boost.setFalling(true);</span>
+
+<span class="nc bnc" id="L267" title="All 2 branches missed.">                for (Brick brick : bricks) {</span>
+                    Rectangle brickBounds;
+
+<span class="nc bnc" id="L270" title="All 2 branches missed.">                    if (boost.isFalling()) {</span>
+<span class="nc" id="L271">                        brickBounds = brick.getTopBounds();</span>
+
+<span class="nc bnc" id="L273" title="All 2 branches missed.">                        if (brickBounds.intersects(prizeBottomBounds)) {</span>
+<span class="nc" id="L274">                            boost.setFalling(false);</span>
+<span class="nc" id="L275">                            boost.setVelY(0);</span>
+<span class="nc" id="L276">                            boost.setY(brick.getY() - boost.getDimension().height + 1);</span>
+<span class="nc bnc" id="L277" title="All 2 branches missed.">                            if (boost.getVelX() == 0)</span>
+<span class="nc" id="L278">                                boost.setVelX(2);</span>
+                        }
+                    }
+
+<span class="nc bnc" id="L282" title="All 2 branches missed.">                    if (boost.getVelX() &gt; 0) {</span>
+<span class="nc" id="L283">                        brickBounds = brick.getLeftBounds();</span>
+
+<span class="nc bnc" id="L285" title="All 2 branches missed.">                        if (brickBounds.intersects(prizeRightBounds)) {</span>
+<span class="nc" id="L286">                            boost.setVelX(-boost.getVelX());</span>
+                        }
+<span class="nc bnc" id="L288" title="All 2 branches missed.">                    } else if (boost.getVelX() &lt; 0) {</span>
+<span class="nc" id="L289">                        brickBounds = brick.getRightBounds();</span>
+
+<span class="nc bnc" id="L291" title="All 2 branches missed.">                        if (brickBounds.intersects(prizeLeftBounds)) {</span>
+<span class="nc" id="L292">                            boost.setVelX(-boost.getVelX());</span>
+                        }
+                    }
+<span class="nc" id="L295">                }</span>
+
+<span class="nc bnc" id="L297" title="All 2 branches missed.">                if (boost.getY() + boost.getDimension().height &gt; map.getBottomBorder()) {</span>
+<span class="nc" id="L298">                    boost.setFalling(false);</span>
+<span class="nc" id="L299">                    boost.setVelY(0);</span>
+<span class="nc" id="L300">                    boost.setY(map.getBottomBorder() - boost.getDimension().height);</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">                    if (boost.getVelX() == 0)</span>
+<span class="nc" id="L302">                        boost.setVelX(2);</span>
+                }
+
+            }
+<span class="nc" id="L306">        }</span>
+<span class="nc" id="L307">    }</span>
+
+    private void checkPrizeContact(GameEngine engine) {
+<span class="nc" id="L310">        ArrayList&lt;Prize&gt; prizes = map.getRevealedPrizes();</span>
+<span class="nc" id="L311">        ArrayList&lt;GameObject&gt; toBeRemoved = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L313">        Rectangle marioBounds = getMario().getBounds();</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">        for(Prize prize : prizes){</span>
+<span class="nc" id="L315">            Rectangle prizeBounds = prize.getBounds();</span>
+<span class="nc bnc" id="L316" title="All 2 branches missed.">            if (prizeBounds.intersects(marioBounds)) {</span>
+<span class="nc" id="L317">                prize.onTouch(getMario(), engine);</span>
+<span class="nc" id="L318">                toBeRemoved.add((GameObject) prize);</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">            } else if(prize instanceof Coin){</span>
+<span class="nc" id="L320">                prize.onTouch(getMario(), engine);</span>
+            }
+<span class="nc" id="L322">        }</span>
+
+<span class="nc" id="L324">        removeObjects(toBeRemoved);</span>
+<span class="nc" id="L325">    }</span>
+
+    private void checkFireballContact() {
+<span class="nc" id="L328">        ArrayList&lt;Fireball&gt; fireballs = map.getFireballs();</span>
+<span class="nc" id="L329">        ArrayList&lt;Enemy&gt; enemies = map.getEnemies();</span>
+<span class="nc" id="L330">        ArrayList&lt;Brick&gt; bricks = map.getAllBricks();</span>
+<span class="nc" id="L331">        ArrayList&lt;GameObject&gt; toBeRemoved = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        for(Fireball fireball : fireballs){</span>
+<span class="nc" id="L334">            Rectangle fireballBounds = fireball.getBounds();</span>
+
+<span class="nc bnc" id="L336" title="All 2 branches missed.">            for(Enemy enemy : enemies){</span>
+<span class="nc" id="L337">                Rectangle enemyBounds = enemy.getBounds();</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">                if (fireballBounds.intersects(enemyBounds)) {</span>
+<span class="nc" id="L339">                    acquirePoints(100);</span>
+<span class="nc" id="L340">                    toBeRemoved.add(enemy);</span>
+<span class="nc" id="L341">                    toBeRemoved.add(fireball);</span>
+                }
+<span class="nc" id="L343">            }</span>
+
+<span class="nc bnc" id="L345" title="All 2 branches missed.">            for(Brick brick : bricks){</span>
+<span class="nc" id="L346">                Rectangle brickBounds = brick.getBounds();</span>
+<span class="nc bnc" id="L347" title="All 2 branches missed.">                if (fireballBounds.intersects(brickBounds)) {</span>
+<span class="nc" id="L348">                    toBeRemoved.add(fireball);</span>
+                }
+<span class="nc" id="L350">            }</span>
+<span class="nc" id="L351">        }</span>
+
+<span class="nc" id="L353">        removeObjects(toBeRemoved);</span>
+<span class="nc" id="L354">    }</span>
+
+    private void removeObjects(ArrayList&lt;GameObject&gt; list){
+<span class="nc bnc" id="L357" title="All 2 branches missed.">        if(list == null)</span>
+<span class="nc" id="L358">            return;</span>
+
+<span class="nc bnc" id="L360" title="All 2 branches missed.">        for(GameObject object : list){</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">            if(object instanceof Fireball){</span>
+<span class="nc" id="L362">                map.removeFireball((Fireball)object);</span>
+            }
+<span class="nc bnc" id="L364" title="All 2 branches missed.">            else if(object instanceof Enemy){</span>
+<span class="nc" id="L365">                map.removeEnemy((Enemy)object);</span>
+            }
+<span class="nc bnc" id="L367" title="All 4 branches missed.">            else if(object instanceof Coin || object instanceof BoostItem){</span>
+<span class="nc" id="L368">                map.removePrize((Prize)object);</span>
+            }
+<span class="nc" id="L370">        }</span>
+<span class="nc" id="L371">    }</span>
+
+    public void addRevealedBrick(OrdinaryBrick ordinaryBrick) {
+<span class="nc" id="L374">        map.addRevealedBrick(ordinaryBrick);</span>
+<span class="nc" id="L375">    }</span>
+
+    public void updateTime(){
+<span class="nc bnc" id="L378" title="All 2 branches missed.">        if(map != null)</span>
+<span class="nc" id="L379">            map.updateTime(1);</span>
+<span class="nc" id="L380">    }</span>
+
+    public int getRemainingTime() {
+<span class="nc" id="L383">        return (int)map.getRemainingTime();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

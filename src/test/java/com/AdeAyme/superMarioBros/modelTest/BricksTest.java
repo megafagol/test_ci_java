@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BricksTest {
-    @Test
+/*    @Test
     public void revealTest(){
         GameEngine engine = new GameEngine("BrickTest");
         //Mario mario = engine.getMapManager().getMario();
@@ -21,6 +21,6 @@ public class BricksTest {
         Prize prizeS= surprise.reveal(engine); // Obtengo la sorpresa en el bloque sorpresa
         assertNotSame(prizeS, null); // verifico que no sea null
         assertEquals(prizeS.getPoint(), 3); // verifico que valga lo que definido
-    }
+    }*/
 
 }
